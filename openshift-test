@@ -1,9 +1,9 @@
 echo "--------------"
 echo "working......."
 echo "--------------"
-yum install centos-release-openshift-origin >> /dev/null 2>&1 
-yum install wget git net-tools bind-utils iptables-services bridge-utils bash-completion origin-clients >> /dev/null 2>&1 
-yum install docker >> /dev/null 2>&1 
+yum install centos-release-openshift-origin -y >> /dev/null 2>&1 
+yum install wget git net-tools bind-utils iptables-services bridge-utils bash-completion origin-clients -y >> /dev/null 2>&1 
+yum install docker -y >> /dev/null 2>&1 
 
 sed -i '/OPTIONS=.*/c\OPTIONS="--selinux-enabled --insecure-registry 172.30.0.0/16"' /etc/sysconfig/docker
 systemctl is-active docker
