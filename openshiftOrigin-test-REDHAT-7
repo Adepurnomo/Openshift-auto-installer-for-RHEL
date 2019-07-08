@@ -33,8 +33,6 @@ firewall-cmd --permanent --zone dockerc --add-port 8053/udp
 firewall-cmd --zone=public --add-port=80/tcp --permanent
 firewall-cmd --zone=public --add-port=443/tcp --permanent
 firewall-cmd --zone=public --add-port=8443/tcp --permanent
-
-
 firewall-cmd --reload
 
 oc cluster up
