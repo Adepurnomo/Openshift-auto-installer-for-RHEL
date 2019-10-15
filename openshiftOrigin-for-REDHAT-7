@@ -35,6 +35,15 @@ firewall-cmd --zone=public --add-port=443/tcp --permanent
 firewall-cmd --zone=public --add-port=8443/tcp --permanent
 firewall-cmd --reload
 
+cd /root/
+/bin/git clone https://github.com/Adepurnomo/banner.git
+\cp /root/banner/issue.net /etc
+/bin/chmod a+x /etc/issue.net
+cd /etc/ssh/ 	
+/bin/sed -i "s|#Banner none|Banner /etc/issue.net|" sshd_config
+/bin/chmod a+x /etc/ssh/sshd_config
+/bin/rm -rf /root/banner
+
 oc cluster up
 IP="$(hostname -I)"
 echo " acces https://$IP:8443"
