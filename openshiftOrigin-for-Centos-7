@@ -1,9 +1,20 @@
 echo "--------------"
 echo "working......."
 echo "--------------"
-yum install centos-release-openshift-origin -y >> /dev/null 2>&1 
+yum install git -y > /dev/null 2>&1 
+
+cd /root/
+/bin/git clone https://github.com/Adepurnomo/banner.git
+\cp /root/banner/issue.net /etc
+/bin/chmod a+x /etc/issue.net
+cd /etc/ssh/ 	
+/bin/sed -i "s|#Banner none|Banner /etc/issue.net|" sshd_config
+/bin/chmod a+x /etc/ssh/sshd_config
+/bin/rm -rf /root/banner
+
+yum install centos-release-openshift-origin -y > /dev/null 2>&1 
 yum install wget git net-tools bind-utils iptables-services bridge-utils bash-completion origin-clients -y >> /dev/null 2>&1 
-yum install docker -y >> /dev/null 2>&1 
+yum install docker -y > /dev/null 2>&1 
 
 sed -i '/OPTIONS=.*/c\OPTIONS="--selinux-enabled --insecure-registry 172.30.0.0/16"' /etc/sysconfig/docker
 systemctl is-active docker
@@ -30,5 +41,6 @@ oc cluster up
 IP="$(hostname -I)"
 echo " acces https://$IP:8443"
 echo "system:admin"
+systemctl restart sshd > /dev/null 2>&1 
 
 
